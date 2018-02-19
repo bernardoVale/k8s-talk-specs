@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: hello-k8s
+spec:
+  type: NodePort
+  selector:
+    app: hello-k8s
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8001

@@ -1,0 +1,25 @@
+apiVersion: apps/v1beta2
+kind: ReplicaSet
+metadata:
+  name: hello-k8s-canary
+  labels:
+    app: hello-k8s
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-k8s
+  template:
+    metadata:
+      labels:
+        app: hello-k8s
+    spec:
+      containers:
+      - name: hello-k8s
+        image: bernardovale/hello-k8s:2.0
+        imagePullPolicy: Always
+        env:
+        - name: APP_ENV
+          value: Production
+        ports:
+        - containerPort: 8001

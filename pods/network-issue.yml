@@ -1,0 +1,13 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: pod-network-issue
+spec:
+  containers:
+    - name: a
+      image: nginx:latest
+      imagePullPolicy: Always
+      
+    - name: b
+      image: nginx:latest
+      imagePullPolicy: Always

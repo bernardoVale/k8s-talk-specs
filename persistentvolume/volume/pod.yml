@@ -1,0 +1,161 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubernetes.io/created-by: |
+      {"kind":"SerializedReference","apiVersion":"v1","reference":{"kind":"ReplicaSet","namespace":"website","name":"website-production-v023","uid":"4acba70a-f6cd-11e7-ad38-126d45169ec0","apiVersion":"extensions","resourceVersion":"21446593"}}
+  creationTimestamp: 2018-01-11T12:45:24Z
+  generateName: website-production-v023-
+  labels:
+    app: website
+    cluster: website-production
+    load-balancer-website-production: "true"
+    replication-controller: website-production-v023
+    stack: production
+    version: "23"
+    website-production-v023: "true"
+  name: website-production-v023-ml2gm
+  namespace: website
+  ownerReferences:
+  - apiVersion: extensions/v1beta1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ReplicaSet
+    name: website-production-v023
+    uid: 4acba70a-f6cd-11e7-ad38-126d45169ec0
+  resourceVersion: "21446630"
+  selfLink: /api/v1/namespaces/website/pods/website-production-v023-ml2gm
+  uid: 4accaa1a-f6cd-11e7-ad38-126d45169ec0
+spec:
+  containers:
+  - args:
+    - node
+    - server/server.js
+    env:
+    - name: WEBSITE_VERSION
+      value: prd-0ce46be0ccc19a662082e61d72a31289a9ca6e2d
+    - name: GH_USERNAME
+      value: 0c5df5369960f9b7fa7e82f085c48465
+    - name: NODE_ENV
+      value: production
+    - name: NEWS_URL
+      value: http://localhost:9000/api/news
+    - name: ACMS_URL
+      value: http://localhost:9000/api
+    - name: BUILD_IMGS
+      value: "true"
+    - name: MONGO_ADDRESS
+      value: mongodb://website:G6Zv2G78CLh9klmy@cluster0-shard-00-00-lmzyw.mongodb.net:27017,cluster0-shard-00-01-lmzyw.mongodb.net:27017,cluster0-shard-00-02-lmzyw.mongodb.net:27017/website?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin
+    image: nexus.avenuecode.com/website/back:prd-0ce46be0ccc19a662082e61d72a31289a9ca6e2d
+    imagePullPolicy: IfNotPresent
+    name: website-back
+    ports:
+    - containerPort: 3000
+      name: http
+      protocol: TCP
+    resources:
+      limits:
+        cpu: 128m
+        memory: 256Mi
+      requests:
+        cpu: 128m
+        memory: 256Mi
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: default-token-z7bgp
+      readOnly: true
+  - args:
+    - node
+    - server/server.js
+    env:
+    - name: NODE_ENV
+      value: production
+    - name: MONGO_ADDRESS
+      value: mongodb://website:G6Zv2G78CLh9klmy@cluster0-shard-00-00-lmzyw.mongodb.net:27017,cluster0-shard-00-01-lmzyw.mongodb.net:27017,cluster0-shard-00-02-lmzyw.mongodb.net:27017/website?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin
+    image: nexus.avenuecode.com/website/acms:prd-0ce46be0ccc19a662082e61d72a31289a9ca6e2d
+    imagePullPolicy: IfNotPresent
+    name: website-acms
+    ports:
+    - containerPort: 9000
+      name: http
+      protocol: TCP
+    resources:
+      limits:
+        cpu: 64m
+        memory: 128Mi
+      requests:
+        cpu: 64m
+        memory: 128Mi
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: default-token-z7bgp
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  imagePullSecrets:
+  - name: docker-nexus
+  - name: docker-hub
+  nodeName: ip-10-10-134-180.ec2.internal
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.alpha.kubernetes.io/notReady
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.alpha.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: default-token-z7bgp
+    secret:
+      defaultMode: 420
+      secretName: default-token-z7bgp
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: 2018-01-11T12:45:24Z
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: 2018-01-11T12:45:36Z
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: 2018-01-11T12:45:24Z
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://4f3597dd8970712d2806be6087a3b5662220d77367d38b40c6918b093872ef6d
+    image: nexus.avenuecode.com/website/acms:dev-ff2a87cf6469a60a62fad2516ecbd519a7e478e2
+    imageID: docker-pullable://nexus.avenuecode.com/website/acms@sha256:c39136b4ace040b9a8ac9fd2c90002d49b72a218834c76aaf07bcd0bcf58e371
+    lastState: {}
+    name: website-acms
+    ready: true
+    restartCount: 0
+    state:
+      running:
+        startedAt: 2018-01-11T12:45:35Z
+  - containerID: docker://070e520fc126a774b3bf6199b4472c3bf609840774ee017a05b1655e916e0741
+    image: nexus.avenuecode.com/website/back:prd-0ce46be0ccc19a662082e61d72a31289a9ca6e2d
+    imageID: docker-pullable://nexus.avenuecode.com/website/back@sha256:2f7405100b6ff92554f343d95086f07a7b2f0b5a206948afb8eae36e8039266b
+    lastState: {}
+    name: website-back
+    ready: true
+    restartCount: 0
+    state:
+      running:
+        startedAt: 2018-01-11T12:45:35Z
+  hostIP: 10.10.134.180
+  phase: Running
+  podIP: 100.96.3.18
+  qosClass: Guaranteed
+  startTime: 2018-01-11T12:45:24Z

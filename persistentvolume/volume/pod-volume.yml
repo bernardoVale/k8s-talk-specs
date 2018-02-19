@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pv
+spec:
+  containers:
+  - image: nginx:latest
+    name: nginx-with-data
+    volumeMounts:
+    - mountPath: /usr/share/nginx/html
+      name: www
+  volumes:
+  - name: www
+    hostPath:
+      path: /tmp/hostpath-manual
+      type: Directory

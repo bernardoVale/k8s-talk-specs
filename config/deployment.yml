@@ -1,0 +1,35 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: hello-config-app
+  labels:
+    app: hello-config
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: hello-config
+  template:
+    metadata:
+      labels:
+        app: hello-config
+    spec:
+      containers:
+      - name: hello-k8s
+        image: bernardovale/hello-k8s:color
+        imagePullPolicy: Always
+        volumeMounts:
+          - name: config-volume
+            mountPath: /etc/config
+        envFrom:
+          - configMapRef:
+              name: fancy-config
+        env:
+        - name: APP_CONFIG
+          value: /etc/config/settings-prod.cfg
+        ports:
+        - containerPort: 8001
+      volumes:
+        - name: config-volume
+          configMap:
+            name: hello-k8s-prod

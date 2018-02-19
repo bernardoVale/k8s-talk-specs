@@ -1,0 +1,36 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: writer
+spec:
+  volumes:
+    - name: shared-data
+      emptyDir: {}
+  containers:
+    - name: a
+      image: bernardovale/writer:latest
+      imagePullPolicy: Always
+      env:
+        - name: SLEEP_DURATION
+          value: "2"
+        - name: CONTAINER_NAME
+          value: a
+        - name: DATA_PATH
+          value: /data
+      volumeMounts:
+        - mountPath: "/data"
+          name: shared-data
+    - name: b
+      image: bernardovale/writer:latest
+      imagePullPolicy: Always
+      env:
+        - name: SLEEP_DURATION
+          value: "1"
+        - name: CONTAINER_NAME
+          value: b
+        - name: DATA_PATH
+          value: /data
+      volumeMounts:
+        - mountPath: "/data"
+          name: shared-data
+    

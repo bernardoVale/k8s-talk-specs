@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pv
+spec:
+  containers:
+  - image: nginx:latest
+    name: nginx-with-data
+    volumeMounts:
+    - mountPath: /usr/share/nginx/html
+      name: www
+  volumes:
+  - name: www
+    awsElasticBlockStore:
+      volumeID: vol-00c1019a0f048aec0
+      fsType: ext4

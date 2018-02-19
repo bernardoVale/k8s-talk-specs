@@ -1,0 +1,28 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: hello-color-app-canary
+  labels:
+    app: hello-color
+    track: canary
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-color
+      track: canary
+  template:
+    metadata:
+      labels:
+        app: hello-color
+        track: canary
+    spec:
+      containers:
+      - name: hello-k8s
+        image: bernardovale/hello-k8s:blue
+        imagePullPolicy: Always
+        env:
+        - name: APP_ENV
+          value: Production
+        ports:
+        - containerPort: 8001

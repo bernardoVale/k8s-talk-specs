@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  annotations:
+    kubernetes.io/createdby: aws-ebs-dynamic-provisioner
+    pv.kubernetes.io/bound-by-controller: "yes"
+    pv.kubernetes.io/provisioned-by: kubernetes.io/aws-ebs
+  labels:
+    failure-domain.beta.kubernetes.io/region: us-east-1
+    failure-domain.beta.kubernetes.io/zone: us-east-1a
+  name: pvc-dbd2ac08-f32e-11e7-b70d-1212ccc85de2
+spec:
+  accessModes:
+  - ReadWriteOnce
+  awsElasticBlockStore:
+    fsType: ext4
+    volumeID: aws://us-east-1a/vol-0e839e7704e937323
+  capacity:
+    storage: 10Gi
+  # claimRef:
+  #   apiVersion: v1
+  #   kind: PersistentVolumeClaim
+  #   name: acdclegacy-staging-data-acdclegacy-postgres-0
+  #   namespace: acdc-legacy
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: default

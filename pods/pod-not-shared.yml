@@ -1,0 +1,22 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: writer
+spec:
+  containers:
+    - name: a
+      image: bernardovale/writer:latest
+      imagePullPolicy: Always
+      env:
+        - name: SLEEP_DURATION
+          value: "2"
+        - name: CONTAINER_NAME
+          value: a
+    - name: b
+      image: bernardovale/writer:latest
+      imagePullPolicy: Always
+      env:
+        - name: SLEEP_DURATION
+          value: "1"
+        - name: CONTAINER_NAME
+          value: b
