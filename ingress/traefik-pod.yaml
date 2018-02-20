@@ -17,6 +17,11 @@ spec:
   terminationGracePeriodSeconds: 60
   containers:
   - image: traefik
+    ports:
+      - containerPort: 80
+        hostPort: 80
+      - containerPort: 443
+        hostPort: 443
     name: traefik-ingress-lb
     args:
     - --web
