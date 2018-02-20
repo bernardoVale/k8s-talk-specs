@@ -8,7 +8,7 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  storageClassName: ""
+  storageClassName: "manual"
   selector:
     matchLabels:
       name: example-pv
