@@ -1,0 +1,14 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: app-ingress
+spec:
+  rules:
+  - host: app.minikube
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: hello-k8s
+          servicePort: 80

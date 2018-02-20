@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: hello-k8s
-        image: bernardovale/hello-k8s:2.0
+        image: bernardovale/hello-k8s:1.0
         terminationGracePeriodSeconds: 0
         imagePullPolicy: Always
         env:
