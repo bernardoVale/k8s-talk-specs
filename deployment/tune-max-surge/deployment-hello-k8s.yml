@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: hello-k8s
-        image: bernardovale/hello-k8s:1.0
+        image: bernardovale/hello-k8s:3.0
         env:
         - name: APP_ENV
           value: Production

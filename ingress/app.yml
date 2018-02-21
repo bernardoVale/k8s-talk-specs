@@ -10,5 +10,5 @@ spec:
       paths:
       - path: /
         backend:
-          serviceName: hello-k8s
+          serviceName: hello-color-app
           servicePort: 80
